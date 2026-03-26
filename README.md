@@ -127,7 +127,7 @@ generates a plain-language explanation.
            |         |               |         |
            v         v               v         v
       DataFetcher  Indicators    Risk Engine  LLM Explainer
-      (yfinance)   (pure math)   (pure math)  (LangChain)
+      (Yahoo+Stooq)(pure math)   (pure math)  (LLM stack)
            |         |               |         |
       Live OHLCV   RSI, MACD,    Position    Translates
       from any     Bollinger,    sizing,     numbers to
@@ -400,14 +400,14 @@ This ensures that if the stop-loss is hit, maximum loss is bounded.
 
 ### Provider Support
 
-QuantScope uses LangChain for multi-provider LLM support:
+QuantScope uses a multi-provider LLM stack (LangChain + native Ollama HTTP adapter):
 
 | Provider | Model | Requires |
 |----------|-------|----------|
 | OpenAI | gpt-4o-mini | `OPENAI_API_KEY` |
 | Anthropic | claude-3-haiku | `ANTHROPIC_API_KEY` |
 | Google | gemini-pro | `GOOGLE_API_KEY` |
-| Ollama | llama3 (local) | `OLLAMA_BASE_URL` |
+| Ollama | llama3 (local/cloud) | `OLLAMA_BASE_URL` (`OLLAMA_API_KEY` optional) |
 | Mistral | mistral-small | `MISTRAL_API_KEY` |
 | Cohere | command-r | `COHERE_API_KEY` |
 
@@ -560,6 +560,8 @@ List of supported exchanges.
 ```bash
 # Run all tests with coverage
 make test
+# Windows alternative:
+python -m pytest -q
 
 # Run specific test file
 pytest tests/test_query_parser.py -v
@@ -672,7 +674,7 @@ curl http://localhost:8000/api/v1/health
   "status": "ok",
   "version": "1.0.0",
   "llm_provider": "openai",
-  "exchanges": 32,
+  "exchanges": 31,
   "metrics": {
     "uptime_seconds": 3600,
     "counters": {
@@ -725,7 +727,7 @@ quantscope/
 |
 |-- frontend/                  UI (no build step)
 |   |-- templates/             Jinja2 HTML templates
-|   |-- static/css/            Tailwind CSS
+|   |-- static/css/            Custom CSS
 |   |-- static/js/             Vanilla JavaScript
 |
 |-- pipeline.py                Orchestrator
@@ -789,8 +791,10 @@ OPENAI_API_KEY=         # Optional: enables OpenAI explanations
 ANTHROPIC_API_KEY=      # Optional: enables Claude explanations
 GOOGLE_API_KEY=         # Optional: enables Gemini explanations
 OLLAMA_BASE_URL=        # Optional: enables local LLM
+OLLAMA_API_KEY=         # Optional: enables Ollama cloud auth
 MISTRAL_API_KEY=        # Optional: enables Mistral
 COHERE_API_KEY=         # Optional: enables Cohere
+YF_PROXY=               # Optional: proxy for market data requests
 LOG_LEVEL=INFO          # DEBUG, INFO, WARNING, ERROR
 ```
 
@@ -809,7 +813,7 @@ LOG_LEVEL=INFO          # DEBUG, INFO, WARNING, ERROR
 | User sends 500 symbols | Server overload | MAX_SYMBOLS=200 limit, rate limiting |
 | User interprets output as advice | Legal liability | Disclaimer on every output, never says "buy/sell" |
 | Extreme market volatility | Indicators lag reality | >50% daily move detection and flagging |
-| Network timeout | Analysis hangs | 15-minute cache, stale cache fallback |
+| Network timeout / Yahoo block | Analysis may degrade | Yahoo retries + per-symbol fallback + Stooq fallback + graceful degraded response |
 
 ---
 
@@ -818,7 +822,7 @@ LOG_LEVEL=INFO          # DEBUG, INFO, WARNING, ERROR
 1. **Does NOT predict stock prices.** It shows current technical conditions.
 2. **Does NOT give investment advice.** It explains what quantitative data shows.
 3. **Does NOT manage real portfolios.** It calculates hypothetical position sizes.
-4. **Does NOT execute trades.** It is analysis only.
+4. **Does NOT execute trades.** It is an analysis only.
 5. **Does NOT use AI for decisions.** Math decides. AI explains.
 6. **Does NOT replace a financial advisor.** It supplements analysis.
 
