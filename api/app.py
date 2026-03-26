@@ -97,3 +97,4 @@ def create():
 
 
 # Create the global app instance used by uvicorn or the test client.
+app = create()
