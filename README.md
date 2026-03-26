@@ -171,7 +171,7 @@ generates a plain-language explanation.
 
 ```bash
 # 1. Clone and setup
-git clone https://github.com/adilshamim8/quantscope.git
+git clone https://github.com/AdilShamim8/QuantScope.git
 cd quantscope
 cp .env.example .env
 pip install -r requirements.txt
@@ -822,7 +822,7 @@ LOG_LEVEL=INFO          # DEBUG, INFO, WARNING, ERROR
 1. **Does NOT predict stock prices.** It shows current technical conditions.
 2. **Does NOT give investment advice.** It explains what quantitative data shows.
 3. **Does NOT manage real portfolios.** It calculates hypothetical position sizes.
-4. **Does NOT execute trades.** It is an analysis only.
+4. **Does NOT execute trades.** It is analysis only.
 5. **Does NOT use AI for decisions.** Math decides. AI explains.
 6. **Does NOT replace a financial advisor.** It supplements analysis.
 
