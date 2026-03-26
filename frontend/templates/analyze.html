@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}QuantScope | Analyze{% endblock %}
+
+{% block content %}
+<div class="analyze-layout">
+	<section class="panel input-panel">
+		<h2>Analysis Inputs</h2>
+		<p class="muted">Use one mode: question-based prompt or direct symbol list.</p>
+
+		<form id="analyze-form" class="stack">
+			<label for="query">Natural language query</label>
+			<textarea id="query" name="query" rows="3" placeholder="Should I invest in Apple or Tesla?"></textarea>
+
+			<label for="symbols">Symbol list (optional fallback)</label>
+			<input id="symbols" name="symbols" type="text" placeholder="AAPL, MSFT, 7203.T, RELIANCE.NS">
+
+			<label for="portfolio">Portfolio value (USD)</label>
+			<input id="portfolio" name="portfolio" type="number" min="1" step="1" value="10000">
+
+			<label for="horizon">Analysis horizon</label>
+			<select id="horizon" name="horizon">
+				<option value="short">Short-term (swing)</option>
+				<option value="medium" selected>Medium-term</option>
+				<option value="long">Long-term (position)</option>
+			</select>
+
+			<div class="action-row">
+				<button class="btn primary" type="submit">Run Analysis</button>
+				<button id="export-report" class="btn" type="button" hidden>Export Report (PDF)</button>
+			</div>
+		</form>
+		<p id="status" class="muted"></p>
+	</section>
+
+	<aside class="panel panel-quiet guide-panel">
+		<h3>How To Read Results</h3>
+		<ul class="hint-list">
+			<li>Use Executive Summary for first-pass decision direction.</li>
+			<li>Check Comparison Table to validate ranking consistency.</li>
+			<li>Use risk zone and stop guidance to plan entry discipline.</li>
+			<li>Export report for investment journal or team review.</li>
+		</ul>
+	</aside>
+</div>
+
+<section class="panel">
+	<h2>Results</h2>
+	<div id="results" class="results-view">
+		<p class="muted">No analysis run yet.</p>
+	</div>
+	<details class="raw-json-wrap">
+		<summary>Show raw JSON</summary>
+		<pre id="raw-results" class="results">No analysis run yet.</pre>
+	</details>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/app.js"></script>
+{% endblock %}

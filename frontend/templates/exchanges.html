@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}QuantScope | Exchanges{% endblock %}
+
+{% block content %}
+<section class="panel">
+	<h1>Supported Exchanges</h1>
+	<p class="muted">Reference list for ticker suffix mapping by region and market.</p>
+	{% for region, items in grouped.items() %}
+	<section class="region-block">
+		<h2>{{ region }}</h2>
+		<div class="table-wrap">
+			<table>
+				<thead>
+					<tr>
+						<th>Code</th>
+						<th>Name</th>
+						<th>Suffix</th>
+						<th>Currency</th>
+						<th>Timezone</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for ex in items %}
+					<tr>
+						<td>{{ ex.code }}</td>
+						<td>{{ ex.name }}</td>
+						<td>{{ ex.suffix }}</td>
+						<td>{{ ex.currency }}</td>
+						<td>{{ ex.tz }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</section>
+	{% endfor %}
+</section>
+{% endblock %}

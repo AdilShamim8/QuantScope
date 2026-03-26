@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}QuantScope | About{% endblock %}
+
+{% block content %}
+<section class="hero hero-analyze">
+	<div class="hero-badge">About Platform</div>
+	<h1>Designed For Disciplined, Data-Driven Investing</h1>
+	<p>
+		QuantScope delivers technical signal context, risk-aware analytics, and readable insights
+		for globally listed equities.
+	</p>
+</section>
+
+<section class="panel panel-quiet">
+	<div class="feature-grid">
+		<article class="panel-lite">
+			<h3>What We Compute</h3>
+			<p class="muted">Momentum, trend, volatility, drawdown behavior, and structured risk position plans.</p>
+		</article>
+		<article class="panel-lite">
+			<h3>How It Helps</h3>
+			<p class="muted">Convert fragmented chart signals into one coherent decision framework.</p>
+		</article>
+		<article class="panel-lite">
+			<h3>Who It Is For</h3>
+			<p class="muted">Retail investors, analysts, and learners who want expert-style structure.</p>
+		</article>
+	</div>
+</section>
+
+<section class="panel">
+	<h2>Disclaimer</h2>
+	<p>{{ disclaimer }}</p>
+</section>
+{% endblock %}

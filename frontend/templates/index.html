@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}QuantScope | Home{% endblock %}
+
+{% block content %}
+<section class="hero hero-home">
+	<div class="hero-badge">Institutional-style analysis for retail speed</div>
+	<h1>Quantitative Stock Intelligence With Expert-Level Clarity</h1>
+	<p>
+		Transform plain-language investing questions into ranked opportunities with risk controls,
+		indicator context, and explainable recommendations.
+	</p>
+	<div class="actions">
+		<a class="btn primary" href="/analyze">Start Analysis</a>
+		<a class="btn" href="/api/docs" target="_blank" rel="noopener">Open API Docs</a>
+	</div>
+	<div class="home-stats">
+		<div class="summary-card">
+			<p class="k">Coverage</p>
+			<p class="v">Global</p>
+		</div>
+		<div class="summary-card">
+			<p class="k">Supported Exchanges</p>
+			<p class="v">{{ exchange_count }}</p>
+		</div>
+		<div class="summary-card">
+			<p class="k">Modes</p>
+			<p class="v">Query + Symbols</p>
+		</div>
+		<div class="summary-card">
+			<p class="k">Stack</p>
+			<p class="v">FastAPI + Quant</p>
+		</div>
+	</div>
+</section>
+
+<section class="panel panel-quiet">
+	<h2>Why It Feels Production-Ready</h2>
+	<div class="feature-grid">
+		<article class="panel-lite">
+			<h3>Signal Fusion</h3>
+			<p class="muted">Technical indicators are combined with risk-adjusted scoring, not shown in isolation.</p>
+		</article>
+		<article class="panel-lite">
+			<h3>Risk First</h3>
+			<p class="muted">Outputs include stop zones, position sizing, and drawdown-aware framing for discipline.</p>
+		</article>
+		<article class="panel-lite">
+			<h3>Explainable UI</h3>
+			<p class="muted">Executive summaries and ranking tables make complex output readable in seconds.</p>
+		</article>
+	</div>
+</section>
+{% endblock %}
